@@ -1,0 +1,63 @@
+[
+    {
+      "nome": "Loja Centro SP",
+      "endereco": "Avenida Paulista, 1000",
+      "cep": "01310-100",
+      "coordenadas": { "latitude": -23.561684, "longitude": -46.655981 }
+    },
+    {
+      "nome": "Loja Norte SP",
+      "endereco": "Avenida Cruzeiro do Sul, 2000",
+      "cep": "02031-000",
+      "coordenadas": { "latitude": -23.504515, "longitude": -46.620327 }
+    },
+    {
+      "nome": "Loja Sul SP",
+      "endereco": "Rua Vergueiro, 1000",
+      "cep": "01504-001",
+      "coordenadas": { "latitude": -23.574984, "longitude": -46.635321 }
+    },
+    {
+      "nome": "Loja Campinas",
+      "endereco": "Rua José Paulino, 1500",
+      "cep": "13013-001",
+      "coordenadas": { "latitude": -22.905823, "longitude": -47.060486 }
+    },
+    {
+      "nome": "Loja Santos",
+      "endereco": "Avenida Ana Costa, 500",
+      "cep": "11060-003",
+      "coordenadas": { "latitude": -23.967913, "longitude": -46.330920 }
+    },
+    {
+      "nome": "Loja Rio de Janeiro",
+      "endereco": "Rua Uruguaiana, 200",
+      "cep": "20050-093",
+      "coordenadas": { "latitude": -22.903923, "longitude": -43.177724 }
+    },
+    {
+      "nome": "Loja Belo Horizonte",
+      "endereco": "Avenida Afonso Pena, 1300",
+      "cep": "30130-004",
+      "coordenadas": { "latitude": -19.922680, "longitude": -43.937891 }
+    },
+    {
+      "nome": "Loja Porto Alegre",
+      "endereco": "Rua dos Andradas, 1500",
+      "cep": "90020-010",
+      "coordenadas": { "latitude": -30.027704, "longitude": -51.228734 }
+    },
+    {
+      "nome": "Loja Curitiba",
+      "endereco": "Rua XV de Novembro, 800",
+      "cep": "80020-310",
+      "coordenadas": { "latitude": -25.428356, "longitude": -49.273251 }
+    },
+    {
+      "nome": "Loja Brasília",
+      "endereco": "Setor Comercial Sul, Quadra 2",
+      "cep": "70312-970",
+      "coordenadas": { "latitude": -15.793220, "longitude": -47.882189 }
+    }
+  ]
+  
