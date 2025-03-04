@@ -5,7 +5,12 @@ const router = express.Router();
 
 router
 .route('/')
-.get(storesController.getAllStores)
-.post(storesController.createStore)
+.get(storesController.PegarTodasLojas)
+.post(storesController.CriarLoja)
+
+router
+.route("/buscar/:cep")
+.get(storesController.localizarLojas);
+
 
 module.exports = router;
