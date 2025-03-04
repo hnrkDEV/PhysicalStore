@@ -19,7 +19,6 @@ A aplicação **Physical Store** permite a localização de lojas físicas dentr
 - **ViaCEP API**: Para buscar o endereço baseado no CEP fornecido.
 - **OpenRouteService API**: Para cálculo das distâncias entre as lojas e o CEP fornecido.
 - **Axios**: Cliente HTTP para realizar requisições às APIs externas.
-- **CORS**: Middleware para habilitar o acesso de diferentes origens à API.
 
 ## Estrutura do Projeto
 
