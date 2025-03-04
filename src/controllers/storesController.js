@@ -5,12 +5,12 @@ const Store = require('../models/storeModel');
 
 exports.PegarTodasLojas = async (req, res) => {
     try {
-        const stores = await Store.find();
+        const lojas = await Store.find();
         res.status(200).json({
             status: 'success',
-            results: stores.length,
+            results: lojas.length,
             data: {
-                stores
+                lojas
             }
         });
     } catch (error) {
@@ -24,7 +24,6 @@ exports.PegarTodasLojas = async (req, res) => {
 
 exports.CriarLoja = async (req, res) => {
     try {
-        console.log("Dados recebidos:", req.body); 
         const { name, endereco, cep, coordenadas } = req.body;
 
         const latitude = Number(coordenadas?.latitude);
