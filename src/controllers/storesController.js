@@ -1,6 +1,7 @@
 const { buscarEndereco } = require("../services/viacepService");
 const { calcularDistancia } = require("../services/distanceService");
 const { buscarCoordenadas } = require("../services/geocodingService");
+const logger = require('../utils/logger');
 const Store = require('../models/storeModel');
 
 exports.PegarTodasLojas = async (req, res) => {
@@ -29,25 +30,19 @@ exports.CriarLoja = async (req, res) => {
         const latitude = Number(coordenadas?.latitude);
         const longitude = Number(coordenadas?.longitude);
 
-        if (!name || !endereco || !cep || isNaN(latitude) || isNaN(longitude)) {
+        if (!name || !endereco || !cep || !coordenadas) {
+            logger.warn('Dados inválidos ao criar loja', { requestBody: req.body });
             return res.status(400).json({ status: "fail", message: "Dados inválidos. Verifique os campos enviados." });
         }
 
         const novaLoja = await Store.create({ name, endereco, cep, coordenadas: { latitude, longitude } });
 
-        res.status(201).json({
-            status: "success",
-            data: {
-                store: novaLoja
-            }
-        });
+        logger.info('Loja criada com sucesso', { loja: novaLoja });
+        res.status(201).json({ status: "success", data: { store: novaLoja } });
 
     } catch (error) {
-        console.error("Erro ao criar loja:", error.message, error.stack);
-        res.status(400).json({
-            status: "fail",
-            message: error.message
-        });
+        logger.error('Erro ao criar loja', { error: error.message, stack: error.stack });
+        res.status(400).json({ status: "fail", message: error.message });
     }
 };
 
@@ -58,7 +53,7 @@ exports.localizarLojas = async (req, res) => {
         const endereco = await buscarEndereco(cep);
 
         if (!endereco) {
-            console.warn(`CEP ${cep} não encontrado.`);
+            logger.warn(`CEP inválido ou não encontrado: ${cep}`);
             return res.status(400).json({ 
                 status: "fail", 
                 message: "CEP inválido ou não encontrado." 
@@ -68,7 +63,7 @@ exports.localizarLojas = async (req, res) => {
         const userLocation = await buscarCoordenadas(endereco.logradouro, endereco.localidade, endereco.uf);
 
         if (!userLocation) {
-            console.error("Falha ao obter coordenadas.");
+            logger.warn(`Não foi possível obter as coordenadas para o endereço do CEP: ${cep}`);
             return res.status(500).json({ 
                 status: "fail", 
                 message: "Erro ao obter coordenadas do endereço." 
@@ -95,19 +90,22 @@ exports.localizarLojas = async (req, res) => {
             .sort((a, b) => a.distancia - b.distancia);
 
         if (lojasProximas.length === 0) {
+            logger.info(`Nenhuma loja encontrada em um raio de 100 km para o CEP: ${cep}`);
             return res.status(404).json({ 
                 status: "fail", 
                 message: 'Nenhuma loja encontrada em um raio de 100 km.' 
             });
         }
 
-        res.status(200).json({
-            status: "success",
-            results: lojasProximas.length,
-            data: lojasProximas
+        logger.info(`Lojas encontradas para o CEP ${cep}: ${lojasProximas.length} lojas`, {
+            cep,
+            lojasEncontradas: lojasProximas.map(loja => loja.nome)
         });
 
+        res.json(lojasProximas);
+
     } catch (error) {
+        logger.error('Erro ao localizar lojas', { cep, error: error.message });
         res.status(500).json({ 
             status: "fail", 
             message: 'Erro interno do servidor' 
