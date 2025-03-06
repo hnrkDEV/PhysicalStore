@@ -33,10 +33,10 @@ mongoose.connect(DB)
     return Store.insertMany(lojas);
   })
   .then(() => {
-    console.log("✅ Lojas cadastradas com sucesso!");
+    console.log("Lojas cadastradas com sucesso!");
     mongoose.connection.close();
   })
   .catch(err => {
-    console.error("❌ Erro:", err);
+    console.error("Erro:", err);
     mongoose.connection.close();
   });
