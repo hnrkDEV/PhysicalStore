@@ -25,17 +25,17 @@ exports.PegarTodasLojas = async (req, res) => {
 
 exports.CriarLoja = async (req, res) => {
     try {
-        const { name, endereco, cep, coordenadas } = req.body;
+        const { nome, endereco, cep, coordenadas } = req.body;
 
         const latitude = Number(coordenadas?.latitude);
         const longitude = Number(coordenadas?.longitude);
 
-        if (!name || !endereco || !cep || !coordenadas) {
+        if (!nome || !endereco || !cep || !coordenadas) {
             logger.warn('Dados inválidos ao criar loja', { requestBody: req.body });
             return res.status(400).json({ status: "fail", message: "Dados inválidos. Verifique os campos enviados." });
         }
 
-        const novaLoja = await Store.create({ name, endereco, cep, coordenadas: { latitude, longitude } });
+        const novaLoja = await Store.create({ nome, endereco, cep, coordenadas: { latitude, longitude } });
 
         logger.info('Loja criada com sucesso', { loja: novaLoja });
         res.status(201).json({ status: "success", data: { store: novaLoja } });
